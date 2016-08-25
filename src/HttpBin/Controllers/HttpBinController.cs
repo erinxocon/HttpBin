@@ -12,7 +12,6 @@ namespace Test.Controllers
     [Route("ip")]
     public class IpController : Controller
     {
-        // GET api/values
         [HttpGet(Name = "ip")]
         public string Get()
         {
@@ -25,7 +24,6 @@ namespace Test.Controllers
     [Route("headers")]
     public class HeaderController : Controller
     {
-        // GET api/values
         [HttpGet(Name = "headers")]
         public string Get()
         {
@@ -38,7 +36,6 @@ namespace Test.Controllers
     [Route("user-agent")]
     public class UserAgentController : Controller
     {
-        // GET api/values
         [HttpGet(Name = "user-agent")]
         public string Get()
         {
