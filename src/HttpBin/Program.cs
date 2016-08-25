@@ -17,6 +17,7 @@ namespace HttpBin
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseUrls("http://0.0.0.0:8000")
                 .Build();
 
             host.Run();
