@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Headers;
 using Newtonsoft.Json;
-using System.IO;
+using HttpBin.Utilis;
 
 namespace Test.Controllers
 {
+
     [Route("ip")]
     public class IpController : Controller
     {
+
         [HttpGet]
         public string Get()
         {
@@ -25,11 +22,13 @@ namespace Test.Controllers
     [Route("headers")]
     public class HeaderController : Controller
     {
+
+
         [HttpGet(Name = "headers")]
         public string Get()
         {
             var headers = Request.Headers;
-            var jsonHeaders = new Dictionary<string, IHeaderDictionary>() { { "headers", headers } };
+            var jsonHeaders = Unpack.convertToDict(headers);
             return JsonConvert.SerializeObject(jsonHeaders, Formatting.Indented);
         }
     }
@@ -49,11 +48,13 @@ namespace Test.Controllers
     [Route("get")]
     public class GetController : Controller
     {
+
         [HttpGet]
         public string Get()
         {
             var queryString = Request.Query;
-            return JsonConvert.SerializeObject(queryString, Formatting.Indented);
+            var queryDict = Unpack.convertToDict(queryString);
+            return JsonConvert.SerializeObject(queryDict, Formatting.Indented);
         }
     }
 
