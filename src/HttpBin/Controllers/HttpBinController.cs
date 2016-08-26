@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Headers;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Test.Controllers
 {
     [Route("ip")]
     public class IpController : Controller
     {
-        [HttpGet(Name = "ip")]
+        [HttpGet]
         public string Get()
         {
             var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
@@ -44,4 +45,27 @@ namespace Test.Controllers
             return JsonConvert.SerializeObject(userDict, Formatting.Indented);
         }
     }
+
+    [Route("get")]
+    public class GetController : Controller
+    {
+        [HttpGet]
+        public string Get()
+        {
+            var queryString = Request.Query;
+            return JsonConvert.SerializeObject(queryString, Formatting.Indented);
+        }
+    }
+
+    [Route("post")]
+    public class PostController : Controller
+    {
+        [HttpPost]
+        public string Get([FromBody] dynamic body)
+        {
+            return body.ToString();
+        }
+
+    }
+
 }
