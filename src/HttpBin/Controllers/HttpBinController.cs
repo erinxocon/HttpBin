@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using HttpBin.Utilis;
 
-namespace Test.Controllers
+namespace HttpBin.Controllers
 {
 
     [Route("ip")]
     public class IpController : Controller
     {
-
+    
         [HttpGet]
         public string Get()
         {
@@ -24,7 +24,7 @@ namespace Test.Controllers
     {
 
 
-        [HttpGet(Name = "headers")]
+        [HttpGet]
         public string Get()
         {
             var headers = Request.Headers;
@@ -36,7 +36,8 @@ namespace Test.Controllers
     [Route("user-agent")]
     public class UserAgentController : Controller
     {
-        [HttpGet(Name = "user-agent")]
+
+        [HttpGet]
         public string Get()
         {
             var userAgentString = Request.Headers["User-Agent"];
@@ -66,7 +67,37 @@ namespace Test.Controllers
         {
             return body.ToString();
         }
+    }
 
+    [Route("patch")]
+    public class PatchController : Controller
+    {
+        [HttpPatch]
+        public string Get([FromBody] dynamic body)
+        {
+            return body.ToString();
+        }
+    }
+
+
+    [Route("put")]
+    public class PutController : Controller
+    {
+        [HttpPut]
+        public string Get([FromBody] dynamic body)
+        {
+            return body.ToString();
+        }
+    }
+
+    [Route("delete")]
+    public class DeleteController : Controller
+    {
+        [HttpDelete]
+        public string Get([FromBody] dynamic body)
+        {
+            return body.ToString();
+        }
     }
 
 }
