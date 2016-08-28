@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.Extensions;
 using Newtonsoft.Json;
@@ -208,6 +209,22 @@ namespace HttpBin.Controllers
         public void Get()
         {
             var redirectUrl = Request.Query["url"];
+
+            Response.Redirect(redirectUrl);
+        }
+    }
+
+    [Route("delay/{num:int}")]
+    public class DelayController : Controller
+    {
+        [HttpGet]
+        public void Get(int num)
+        {
+            var redirectUrl = "http://" + Request.Host.ToString() + "/get";
+
+            var milisecs = num * 1000;
+
+            Thread.Sleep(milisecs);
 
             Response.Redirect(redirectUrl);
         }
