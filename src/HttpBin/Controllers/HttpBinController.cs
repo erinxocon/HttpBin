@@ -25,7 +25,6 @@ namespace HttpBin.Controllers
     public class HeaderController : Controller
     {
 
-
         [HttpGet]
         public string Get()
         {
@@ -148,6 +147,69 @@ namespace HttpBin.Controllers
             };
 
             return JsonConvert.SerializeObject(respObj, Formatting.Indented);
+        }
+    }
+
+    [Route("status/{statusCode:int}")]
+    public class StatusController : Controller
+    {
+        [HttpGet]
+        public StatusCodeResult Get(int statusCode)
+        {
+            return StatusCode(statusCode);
+        }
+    }
+
+    [Route("response-headers")]
+    public class ResponseHeadersController : Controller
+    {
+        [HttpGet]
+        public string Get()
+        {
+
+            foreach (var entry in Request.Query)
+            {
+                Response.Headers.Add(entry.Key, entry.Value);
+            }
+
+            return JsonConvert.SerializeObject(Response.Headers, Formatting.Indented);
+        }
+    }
+
+    [Route("redirect/{num:int}")]
+    public class RedirectController : Controller
+    {
+        [HttpGet]
+        public void Get(int num)
+        {
+
+            string redirectUrl = "http://" + Request.Host.ToString();
+
+            if (num > 1)
+            {
+                num--;
+                redirectUrl = "/redirect/" + num.ToString();
+                Response.Redirect(redirectUrl);
+            }
+
+            else
+            {
+                redirectUrl += "/get";
+                Response.Redirect(redirectUrl);
+            }
+
+        }
+    }
+
+    [Route("redirect-to")]
+    public class RedirectToController : Controller
+    {
+        [HttpGet]
+        public void Get()
+        {
+            var redirectUrl = Request.Query["url"];
+
+            Response.Redirect(redirectUrl);
         }
     }
 
