@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.Extensions;
 using Newtonsoft.Json;
-using HttpBin.Utilis;
+using HttpBin.Utils;
+using HttpBin.Models;
 
 namespace HttpBin.Controllers
 {
@@ -13,8 +15,8 @@ namespace HttpBin.Controllers
         [HttpGet]
         public string Get()
         {
-            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
-            var jsonIp = new Dictionary<string, string>() { { "origin", ipAddress.ToString() } };
+            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var jsonIp = new Dictionary<string, string>() { { "origin", ipAddress } };
             return JsonConvert.SerializeObject(jsonIp, Formatting.Indented);
         }
     }
@@ -27,9 +29,9 @@ namespace HttpBin.Controllers
         [HttpGet]
         public string Get()
         {
-            var headers = Request.Headers;
-            var jsonHeaders = Unpack.convertToDict(headers);
-            return JsonConvert.SerializeObject(jsonHeaders, Formatting.Indented);
+            var jsonHeaders = Unpack.convertToDict(Request.Headers);
+            var resp = new Dictionary<string, Dictionary<string, string>>() { { "headers", jsonHeaders } };
+            return JsonConvert.SerializeObject(resp, Formatting.Indented);
         }
     }
 
@@ -53,9 +55,17 @@ namespace HttpBin.Controllers
         [HttpGet]
         public string Get()
         {
-            var queryString = Request.Query;
-            var queryDict = Unpack.convertToDict(queryString);
-            return JsonConvert.SerializeObject(queryDict, Formatting.Indented);
+
+            var respObj = new ResponseObject()
+            {
+                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request)
+
+            };
+
+            return JsonConvert.SerializeObject(respObj, Formatting.Indented);
         }
     }
 
@@ -65,7 +75,18 @@ namespace HttpBin.Controllers
         [HttpPost]
         public string Get([FromBody] dynamic body)
         {
-            return body.ToString();
+
+            var respObj = new ResponseObject()
+            {
+                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request),
+                json = body
+
+            };
+
+            return JsonConvert.SerializeObject(respObj, Formatting.Indented);
         }
     }
 
@@ -75,7 +96,17 @@ namespace HttpBin.Controllers
         [HttpPatch]
         public string Get([FromBody] dynamic body)
         {
-            return body.ToString();
+            var respObj = new ResponseObject()
+            {
+                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request),
+                json = body
+
+            };
+
+            return JsonConvert.SerializeObject(respObj, Formatting.Indented);
         }
     }
 
@@ -86,7 +117,17 @@ namespace HttpBin.Controllers
         [HttpPut]
         public string Get([FromBody] dynamic body)
         {
-            return body.ToString();
+            var respObj = new ResponseObject()
+            {
+                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request),
+                json = body
+
+            };
+
+            return JsonConvert.SerializeObject(respObj, Formatting.Indented);
         }
     }
 
@@ -96,7 +137,17 @@ namespace HttpBin.Controllers
         [HttpDelete]
         public string Get([FromBody] dynamic body)
         {
-            return body.ToString();
+            var respObj = new ResponseObject()
+            {
+                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request),
+                json = body
+
+            };
+
+            return JsonConvert.SerializeObject(respObj, Formatting.Indented);
         }
     }
 
