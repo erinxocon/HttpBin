@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-namespace HttpBin.Utilis
+namespace HttpBin.Utils
 {
     static public class Unpack
     {
