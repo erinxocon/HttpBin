@@ -88,6 +88,7 @@ namespace HttpBin.Controllers
 
             return JsonConvert.SerializeObject(respObj, Formatting.Indented);
         }
+
     }
 
     [Route("patch")]
@@ -228,6 +229,28 @@ namespace HttpBin.Controllers
 
             Response.Redirect(redirectUrl);
         }
+    }
+
+    [Route("forms")]
+    public class FormsController : Controller
+    {
+        [HttpPost]
+        public string Get()
+        {
+
+            var respObj = new ResponseObject()
+            {
+                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request),
+                forms = Unpack.convertToDict(Request.Form)
+
+            };
+
+            return JsonConvert.SerializeObject(respObj, Formatting.Indented);
+        }
+
     }
 
 }
