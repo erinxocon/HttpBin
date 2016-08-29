@@ -24,5 +24,15 @@ namespace HttpBin.Utils
             }
             return newDict;
         }
+
+        static public Dictionary<string, string> convertToDict(IFormCollection headerDict)
+        {
+            var newDict = new Dictionary<string, string>();
+            foreach (var entry in headerDict)
+            {
+                newDict.Add(entry.Key, entry.Value);
+            }
+            return newDict;
+        }
     }
 }
