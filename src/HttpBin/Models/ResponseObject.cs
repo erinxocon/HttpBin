@@ -10,5 +10,6 @@ namespace HttpBin.Models
         public string origin { get; set; }
         public string url { get; set; }
         public JObject json { get; set; }
+        public Dictionary<string, string> forms { get; set; }
     }
 }
