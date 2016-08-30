@@ -16,7 +16,7 @@ namespace HttpBin.Controllers
         [HttpGet]
         public string Get()
         {
-            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var ipAddress = Request.Headers["X-Forwarded-For"];
             var jsonIp = new Dictionary<string, string>() { { "origin", ipAddress } };
             return JsonConvert.SerializeObject(jsonIp, Formatting.Indented);
         }
@@ -58,7 +58,7 @@ namespace HttpBin.Controllers
 
             var respObj = new ResponseObject()
             {
-                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                origin = Request.Headers["X-Forwarded-For"],
                 args = Unpack.convertToDict(Request.Query),
                 headers = Unpack.convertToDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request)
@@ -78,7 +78,7 @@ namespace HttpBin.Controllers
 
             var respObj = new ResponseObject()
             {
-                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                origin = Request.Headers["X-Forwarded-For"],
                 args = Unpack.convertToDict(Request.Query),
                 headers = Unpack.convertToDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
@@ -99,7 +99,7 @@ namespace HttpBin.Controllers
         {
             var respObj = new ResponseObject()
             {
-                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                origin = Request.Headers["X-Forwarded-For"],
                 args = Unpack.convertToDict(Request.Query),
                 headers = Unpack.convertToDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
@@ -120,7 +120,7 @@ namespace HttpBin.Controllers
         {
             var respObj = new ResponseObject()
             {
-                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                origin = Request.Headers["X-Forwarded-For"],
                 args = Unpack.convertToDict(Request.Query),
                 headers = Unpack.convertToDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
@@ -140,7 +140,7 @@ namespace HttpBin.Controllers
         {
             var respObj = new ResponseObject()
             {
-                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                origin = Request.Headers["X-Forwarded-For"],
                 args = Unpack.convertToDict(Request.Query),
                 headers = Unpack.convertToDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
@@ -240,7 +240,7 @@ namespace HttpBin.Controllers
 
             var respObj = new ResponseObject()
             {
-                origin = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                origin = Request.Headers["X-Forwarded-For"],
                 args = Unpack.convertToDict(Request.Query),
                 headers = Unpack.convertToDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
