@@ -20,7 +20,16 @@ namespace HttpBin.Utils
             var newDict = new Dictionary<string, string>();
             foreach (var entry in headerDict)
             {
-                newDict.Add(entry.Key, entry.Value);
+                if (entry.Key.StartsWith("X"))
+                {
+                    break;
+                }
+
+                else
+                {
+                    newDict.Add(entry.Key, entry.Value);
+                }
+
             }
             return newDict;
         }
