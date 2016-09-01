@@ -43,5 +43,15 @@ namespace HttpBin.Utils
             }
             return newDict;
         }
+
+        static public Dictionary<string, string> convertToDict(IRequestCookieCollection cookies)
+        {
+            var newDict = new Dictionary<string, string>();
+            foreach (var entry in cookies)
+            {
+                newDict.Add(entry.Key, entry.Value);
+            }
+            return newDict;
+        }
     }
 }
