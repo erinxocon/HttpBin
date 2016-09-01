@@ -12,7 +12,7 @@ namespace HttpBin.Controllers
     [Route("ip")]
     public class IpController : Controller
     {
-    
+
         [HttpGet]
         public string Get()
         {
@@ -253,4 +253,67 @@ namespace HttpBin.Controllers
 
     }
 
+    [Route("cookies")]
+    public class CookieController : Controller
+    {
+        [HttpGet]
+        public string Get()
+        {
+            var cookies = Unpack.convertToDict(Request.Cookies);
+
+            var cookieDict = new Dictionary<string, Dictionary<string, string>>() { { "cookies", cookies } };
+
+            return JsonConvert.SerializeObject(cookieDict, Formatting.Indented);
+        }
+
+    }
+
+    [Route("cookies/set")]
+    public class CookieSetController : Controller
+    {
+        [HttpGet]
+        public void Get()
+        {
+            var args = Unpack.convertToDict(Request.Query);
+            var cookies = new Dictionary<string, string>();
+
+            foreach (var entry in args)
+            {
+                cookies.Add(entry.Key, entry.Value);
+                Response.Cookies.Append(entry.Key, entry.Value, new Microsoft.AspNetCore.Http.CookieOptions()
+                {
+                    Path = "/cookies",
+                    HttpOnly = false,
+                    Secure = false
+                });
+            }
+
+            var cookieDict = new Dictionary<string, Dictionary<string, string>>() { { "cookies", cookies } };
+
+            Response.Redirect("/cookies");
+        }
+
+    }
+
+    [Route("cookies/delete")]
+    public class CookieDeleteController : Controller
+    {
+        [HttpGet]
+        public void Get()
+        {
+            var args = Unpack.convertToDict(Request.Query);
+            var cookies = new Dictionary<string, string>();
+
+            foreach (var entry in args)
+            {
+                cookies.Remove(entry.Key);
+                Response.Cookies.Delete(entry.Key);
+            }
+
+            var cookieDict = new Dictionary<string, Dictionary<string, string>>() { { "cookies", cookies } };
+
+            Response.Redirect("/cookies");
+        }
+
+    }
 }
