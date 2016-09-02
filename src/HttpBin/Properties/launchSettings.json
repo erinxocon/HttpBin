@@ -19,7 +19,7 @@
     "HttpBin": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:8000/ip",
+      "launchUrl": "http://localhost:8000/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
