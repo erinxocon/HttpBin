@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Newtonsoft.Json;
 using HttpBin.Utils;
 using HttpBin.Models;
+using System;
 
 namespace HttpBin.Controllers
 {
@@ -275,20 +276,18 @@ namespace HttpBin.Controllers
         public void Get()
         {
             var args = Unpack.convertToDict(Request.Query);
-            var cookies = new Dictionary<string, string>();
 
             foreach (var entry in args)
             {
-                cookies.Add(entry.Key, entry.Value);
+
                 Response.Cookies.Append(entry.Key, entry.Value, new Microsoft.AspNetCore.Http.CookieOptions()
                 {
                     Path = "/cookies",
                     HttpOnly = false,
-                    Secure = false
+                    Secure = false,
+                    Expires = DateTime.Now.AddDays(1d)
                 });
             }
-
-            var cookieDict = new Dictionary<string, Dictionary<string, string>>() { { "cookies", cookies } };
 
             Response.Redirect("/cookies");
         }
@@ -302,15 +301,15 @@ namespace HttpBin.Controllers
         public void Get()
         {
             var args = Unpack.convertToDict(Request.Query);
-            var cookies = new Dictionary<string, string>();
 
             foreach (var entry in args)
             {
-                cookies.Remove(entry.Key);
-                Response.Cookies.Delete(entry.Key);
+                Response.Cookies.Append(entry.Key, entry.Value, new Microsoft.AspNetCore.Http.CookieOptions()
+                {
+                    Path = "/cookies",
+                    Expires = DateTime.Now.AddDays(-1d)
+                });
             }
-
-            var cookieDict = new Dictionary<string, Dictionary<string, string>>() { { "cookies", cookies } };
 
             Response.Redirect("/cookies");
         }
