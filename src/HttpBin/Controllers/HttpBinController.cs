@@ -6,6 +6,11 @@ using Newtonsoft.Json;
 using HttpBin.Utils;
 using HttpBin.Models;
 using System;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text;
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 namespace HttpBin.Controllers
 {
@@ -315,4 +320,35 @@ namespace HttpBin.Controllers
         }
 
     }
+
+    [Route("stream/{num:int}")]
+    public class StreamController : Controller
+    {
+        [HttpGet]
+        public string Get(int num)
+        {
+
+            num = Math.Min(num, 100);
+
+            var respObj = new ResponseObject()
+            {
+                origin = IpHelper.getIp(Request),
+                args = Unpack.convertToDict(Request.Query),
+                headers = Unpack.convertToDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request)
+
+            };
+
+            List<ResponseObject> list = new List<ResponseObject>();
+
+            for (int i = 0; i <= num; i++)
+            {
+                list.Add(respObj);
+            };
+
+            return JsonConvert.SerializeObject(list);
+        }
+    }
+
+
 }
