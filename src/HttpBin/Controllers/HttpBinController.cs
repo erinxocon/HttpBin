@@ -6,11 +6,6 @@ using Newtonsoft.Json;
 using HttpBin.Utils;
 using HttpBin.Models;
 using System;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
 
 namespace HttpBin.Controllers
 {
@@ -190,6 +185,7 @@ namespace HttpBin.Controllers
         [HttpGet]
         public void Get(int num)
         {
+            num = Math.Min(num, 60);
 
             string redirectUrl = "http://" + Request.Host.ToString();
 
