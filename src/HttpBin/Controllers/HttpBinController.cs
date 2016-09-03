@@ -57,11 +57,13 @@ namespace HttpBin.Controllers
         public string Get()
         {
 
+            bool showEnv = Request.Query["show_env"] == "1" ? true : false;
+
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
                 args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                headers = Unpack.convertToDict(Request.Headers, showEnv),
                 url = UriHelper.GetDisplayUrl(Request)
 
             };
@@ -345,6 +347,5 @@ namespace HttpBin.Controllers
             return JsonConvert.SerializeObject(list);
         }
     }
-
 
 }

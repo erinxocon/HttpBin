@@ -15,12 +15,12 @@ namespace HttpBin.Utils
             return newDict;
         }
 
-        static public Dictionary<string, string> convertToDict(IHeaderDictionary headerDict)
+        static public Dictionary<string, string> convertToDict(IHeaderDictionary headerDict, bool showEnv = false)
         {
             var newDict = new Dictionary<string, string>();
             foreach (var entry in headerDict)
             {
-                if (entry.Key.StartsWith("X"))
+                if (entry.Key.StartsWith("X") && showEnv == false)
                 {
                     break;
                 }
