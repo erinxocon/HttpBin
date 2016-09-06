@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 
 namespace HttpBin.Utils
 {
     static public class Unpack
     {
-        static public Dictionary<string, string> convertToDict(IQueryCollection queryString)
+        static public Dictionary<string, string> flattenDict(IEnumerable<KeyValuePair<string, StringValues>> queryString)
         {
             var newDict = new Dictionary<string, string>();
             foreach (var entry in queryString)
@@ -15,7 +16,7 @@ namespace HttpBin.Utils
             return newDict;
         }
 
-        static public Dictionary<string, string> convertToDict(IHeaderDictionary headerDict, bool showEnv = false)
+        static public Dictionary<string, string> flattenDict(IHeaderDictionary headerDict, bool showEnv = false)
         {
             var newDict = new Dictionary<string, string>();
             foreach (var entry in headerDict)
@@ -34,17 +35,7 @@ namespace HttpBin.Utils
             return newDict;
         }
 
-        static public Dictionary<string, string> convertToDict(IFormCollection headerDict)
-        {
-            var newDict = new Dictionary<string, string>();
-            foreach (var entry in headerDict)
-            {
-                newDict.Add(entry.Key, entry.Value);
-            }
-            return newDict;
-        }
-
-        static public Dictionary<string, string> convertToDict(IRequestCookieCollection cookies)
+        static public Dictionary<string, string> flattenDict(IEnumerable<KeyValuePair<string, string>> cookies)
         {
             var newDict = new Dictionary<string, string>();
             foreach (var entry in cookies)
