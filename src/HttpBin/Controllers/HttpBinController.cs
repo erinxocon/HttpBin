@@ -30,7 +30,7 @@ namespace HttpBin.Controllers
         [HttpGet]
         public string Get()
         {
-            var jsonHeaders = Unpack.convertToDict(Request.Headers);
+            var jsonHeaders = Unpack.flattenDict(Request.Headers);
             var resp = new Dictionary<string, Dictionary<string, string>>() { { "headers", jsonHeaders } };
             return JsonConvert.SerializeObject(resp, Formatting.Indented);
         }
@@ -62,8 +62,8 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers, showEnv),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers, showEnv),
                 url = UriHelper.GetDisplayUrl(Request)
 
             };
@@ -82,8 +82,8 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
                 json = body
 
@@ -103,8 +103,8 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
                 json = body
 
@@ -124,8 +124,8 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
                 json = body
 
@@ -144,8 +144,8 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
                 json = body
 
@@ -245,10 +245,10 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request),
-                forms = Unpack.convertToDict(Request.Form)
+                forms = Unpack.flattenDict(Request.Form)
 
             };
 
@@ -263,7 +263,7 @@ namespace HttpBin.Controllers
         [HttpGet]
         public string Get()
         {
-            var cookies = Unpack.convertToDict(Request.Cookies);
+            var cookies = Unpack.flattenDict(Request.Cookies);
 
             var cookieDict = new Dictionary<string, Dictionary<string, string>>() { { "cookies", cookies } };
 
@@ -278,7 +278,7 @@ namespace HttpBin.Controllers
         [HttpGet]
         public void Get()
         {
-            var args = Unpack.convertToDict(Request.Query);
+            var args = Unpack.flattenDict(Request.Query);
 
             foreach (var entry in args)
             {
@@ -303,7 +303,7 @@ namespace HttpBin.Controllers
         [HttpGet]
         public void Get()
         {
-            var args = Unpack.convertToDict(Request.Query);
+            var args = Unpack.flattenDict(Request.Query);
 
             foreach (var entry in args)
             {
@@ -331,8 +331,8 @@ namespace HttpBin.Controllers
             var respObj = new ResponseObject()
             {
                 origin = IpHelper.getIp(Request),
-                args = Unpack.convertToDict(Request.Query),
-                headers = Unpack.convertToDict(Request.Headers),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
                 url = UriHelper.GetDisplayUrl(Request)
 
             };
