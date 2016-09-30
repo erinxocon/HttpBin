@@ -13,7 +13,7 @@ namespace HttpBin
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:8000")
+                .UseUrls("http://*:8000")
                 .Build();
 
             host.Run();
