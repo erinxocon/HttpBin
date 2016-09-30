@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  httpbin:
+    image: httpbin
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"

@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  httpbin:
+    image: httpbin:debug
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    ports:
+      - "8000:8000"
+    environment:
+      - REMOTE_DEBUGGING
