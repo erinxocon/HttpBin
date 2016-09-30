@@ -16,6 +16,16 @@ namespace HttpBin.Utils
             return newDict;
         }
 
+        static public Dictionary<string, string> flattenDict(IEnumerable<KeyValuePair<string, string>> cookies)
+        {
+            var newDict = new Dictionary<string, string>();
+            foreach (var entry in cookies)
+            {
+                newDict.Add(entry.Key, entry.Value);
+            }
+            return newDict;
+        }
+
         static public Dictionary<string, string> flattenDict(IHeaderDictionary headerDict, bool showEnv = false)
         {
             var newDict = new Dictionary<string, string>();
@@ -31,16 +41,6 @@ namespace HttpBin.Utils
                     newDict.Add(entry.Key, entry.Value);
                 }
 
-            }
-            return newDict;
-        }
-
-        static public Dictionary<string, string> flattenDict(IEnumerable<KeyValuePair<string, string>> cookies)
-        {
-            var newDict = new Dictionary<string, string>();
-            foreach (var entry in cookies)
-            {
-                newDict.Add(entry.Key, entry.Value);
             }
             return newDict;
         }
